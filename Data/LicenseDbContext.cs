@@ -1,5 +1,5 @@
-﻿using LicenseApi.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using LicenseApi.Models;
 
 namespace LicenseApi.Data
 {

@@ -2,14 +2,22 @@
 using LicenseApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LicenseApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LicenseController(LicenseDbContext context) : ControllerBase
+    public class LicenseController : ControllerBase
     {
-        private readonly LicenseDbContext _context = context;
+        private readonly LicenseDbContext _context;
+
+        public LicenseController(LicenseDbContext context)
+        {
+            _context = context;
+        }
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterDevice([FromBody] DeviceInfo device)
@@ -21,11 +29,9 @@ namespace LicenseApi.Controllers
                 .Where(d => d.UserId == device.UserId)
                 .ToListAsync();
 
-            // Jika device sudah terdaftar, skip
             if (existingDevices.Any(d => d.DeviceId == device.DeviceId))
                 return Ok("Device already registered.");
 
-            // Maksimum 10 device per userId
             if (existingDevices.Count >= 10)
                 return BadRequest("Device limit reached (10).");
 
@@ -49,3 +55,4 @@ namespace LicenseApi.Controllers
         }
     }
 }
+
