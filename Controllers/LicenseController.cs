@@ -53,6 +53,18 @@ namespace LicenseApi.Controllers
 
             return Ok(new { userId, count });
         }
+
+        [HttpGet("device")]
+        public async Task<IActionResult> GetDeviceInfo(string userId, string deviceId)
+        {
+            var device = await _context.Devices
+                .FirstOrDefaultAsync(d => d.UserId == userId && d.DeviceId == deviceId);
+
+            if (device == null)
+                return NotFound();
+
+            return Ok(device);
+        }
     }
 }
 
