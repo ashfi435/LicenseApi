@@ -65,6 +65,17 @@ namespace LicenseApi.Controllers
 
             return Ok(device);
         }
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteDevice(string userId, string deviceId)
+        {
+            var device = _context.Devices.FirstOrDefault(d => d.UserId == userId && d.DeviceId == deviceId);
+            if (device == null) return NotFound();
+
+            _context.Devices.Remove(device);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }
 
