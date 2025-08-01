@@ -1,0 +1,21 @@
+## Build folders
+bin/
+obj/
+out/
+
+## VS & Rider
+.vs/
+.idea/
+*.user
+*.suo
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Logs and secrets
+*.log
+*.db
+*.sqlite
+*.Secret.json
+.env
